@@ -133,8 +133,8 @@ assign_shift:
 	ADD R4, R4, #1
 	B assign_shift
 assign_start:
-	BIC R3, R3, R5
-	ADD R1, R3, R1
+	BIC R3, R3, R5				//clear the area for the specific display 
+	ADD R1, R3, R1				//add the current assignment to the area of the specific display
 	STR R1, [R0]
 	POP {R4, R5}
 	BX LR

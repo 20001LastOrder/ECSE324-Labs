@@ -27,7 +27,7 @@ read_PB_data_ASM:
 PB_data_is_pressed_ASM:
 	PUSH {LR}
 	LDR R1, =BUTTON_DATA
-	BL loop_and_compare
+	BL compare
 	POP {LR}
 	BX LR
 
@@ -49,29 +49,27 @@ disable_PB_INT_ASM:
 
 read_PB_edgecap_ASM:
 	LDR R1, =BUTTON_EDGE
-	LDR R0, [R1]
-	AND R0, R0, #15					//and R0 to only reserve the last 4 bits			
+	LDR R2, [R1]
+	AND R2, R2, #15
+	AND R0, R0, R2					//and R0 to only reserve the last 4 bits			
 	BX LR
 
 PB_edgecap_is_pressed_ASM:
 	PUSH {LR}
 	LDR R1, =BUTTON_EDGE
-	BL loop_and_compare
+	BL compare
 	POP {LR}
 	BX LR
 
 PB_clear_edgecap_ASM:
 	LDR R1, =BUTTON_EDGE
-	LDR R2, [R1]
-	AND R2, R2, #15
-	BIC R2, R2, R0					//Disable BUTTON_INTERRUPT
-	STR R2, [R1]					//Store it back to R1
+	STR R0, [R1]					//Store any value will reset the edge value
 	BX LR
 
 //R0: Buttons to assign
 //R1: address to store the buttons
 //R2: number code to assign
-loop_and_compare:
+compare:
 	PUSH {R4, R5}
 	MOV R5, R0
 	MOV R0, #0
