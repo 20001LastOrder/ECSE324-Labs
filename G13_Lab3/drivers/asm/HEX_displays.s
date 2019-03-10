@@ -112,9 +112,9 @@ MAP_NUMBER_TO_DISP:
 	CMP R1, #13			//D
 	MOVEQ R0, #94
 	CMP R1, #14			//E
-	MOVEQ R0, #113
-	CMP R1, #15			//F
 	MOVEQ R0, #121
+	CMP R1, #15			//F
+	MOVEQ R0, #113
 	BX LR
 
 //assgin value to the HEX display address (R0) based on the param (R1)
